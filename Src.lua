@@ -1023,19 +1023,13 @@ function OrionLib:MakeWindow(WindowConfig)
     AddConnection(TextboxActual:GetPropertyChangedSignal("Text"), SearchHandle)
 end
 
-local WindowName =
-    AddThemeObject(
-    SetProps(
-        MakeElement("Label", WindowConfig.Name, 14),
-        {
-            Size = UDim2.new(1, -30, 2, 0),
-            Position = UDim2.new(0, 25, 0, -24),
-            Font = Enum.Font.GothamBlack,
-            TextSize = 20
-        }
-    ),
-    "Text"
-)
+        local WindowName = AddThemeObject(SetProps(MakeElement("Label", WindowConfig.Name, 14), {
+                Size = UDim2.new(1, -30, 2, 0),
+                Position = UDim2.new(0, 25, 0, -24),
+                Font = Enum.Font.GothamBlack,
+                TextSize = 20
+        }), "Text")
+
 
 local WindowTopBarLine =
     AddThemeObject(
