@@ -1,64 +1,3 @@
-local HttpService = game:GetService("HttpService")
-local LocalizationService = game:GetService("LocalizationService")
-
-local translations = {
-    pt = {
-        ["Interface fechada"] = "Interface fechada",
-        ["Clique na <b>Icon"] = "Clique na <b>Icon",
-        ["Pressione a tecla <b>"] = "Pressione a tecla <b>",
-        ["para abrir a GUI novamente!"] = "para abrir a GUI novamente!",
-        ["Destroying Script..."] = "Destruindo Script...",
-        ["Loading Script..."] = "Carregando Script..."
-    },
-    en = {
-        ["Interface fechada"] = "Window Closed",
-        ["Clique na <b>Icon"] = "Click on the <b>Icon",
-        ["Pressione a tecla <b>"] = "Press the <b>",
-        ["para abrir a GUI novamente!"] = "to open the GUI again!",
-        ["Destroying Script..."] = "Destroying Script...",
-        ["Loading Script..."] = "Loading Script..."
-    },
-    es = {
-        ["Interface fechada"] = "Interfaz Cerrada",
-        ["Clique na <b>Icon"] = "Haz clic en el <b>Icono",
-        ["Pressione a tecla <b>"] = "Presiona la tecla <b>",
-        ["para abrir a GUI novamente!"] = "para abrir la GUI nuevamente!",
-        ["Destroying Script..."] = "Destruyendo Script...",
-        ["Loading Script..."] = "Cargando Script..."
-    },
-    ru = {
-        ["Interface fechada"] = "Интерфейс Закрыт",
-        ["Clique na <b>Icon"] = "Нажмите на <b>Иконку",
-        ["Pressione a tecla <b>"] = "Нажмите клавишу <b>",
-        ["para abrir a GUI novamente!"] = "чтобы снова открыть GUI!",
-        ["Destroying Script..."] = "Уничтожение Скрипта...",
-        ["Loading Script..."] = "Загрузка Скрипта..."
-    }
-}
-
-local playerLocale = LocalizationService:GetCountryRegionForPlayerAsync(game.Players.LocalPlayer)
-
-local languageMap = {
-    ["BR"] = "pt",
-    ["US"] = "en",
-    ["GB"] = "en",
-    ["ES"] = "es",
-    ["MX"] = "es",
-    ["RU"] = "ru"
-}
-
-local currentLanguage = languageMap[playerLocale] or "en"
-
-local function loadTranslations()
-    return translations[currentLanguage] or translations["en"]
-end
-
-local translations = loadTranslations()
-
-local function translate(key)
-    return translations[key] or key
-end
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -128,23 +67,18 @@ local OrionLib = {
     SaveCfg = false
 }
 local Icons = {}
+
 local Success, Response = pcall(function()
-    Icons = HttpService:JSONDecode(
-        game:HttpGetAsync("https://raw.githubusercontent.com/ySixxNz/LibraryV1/refs/heads/LibraryV1/icons.json")
-    ).icons
+    local jsonData = game:HttpGet("https://raw.githubusercontent.com/ySixxNz/LibraryV1/refs/heads/LibraryV1/icons.json")
+    Icons = HttpService:JSONDecode(jsonData).icons
 end)
 
 if not Success then
     warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
-    Icons = {}
 end
 
 local function GetIcon(IconName)
-    local cleanedIconName = IconName:gsub("^lucide%-", ""):gsub("^%-", "")
-    if Icons["lucide-" .. cleanedIconName] ~= nil then
-        return Icons["lucide-" .. cleanedIconName]
-    elseif Icons[cleanedIconName] ~= nil then
-        return Icons[cleanedIconName]
+    return Icons[IconName] or nil
 end
 
 local Orion = Instance.new("ScreenGui")
