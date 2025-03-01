@@ -128,31 +128,23 @@ local OrionLib = {
     SaveCfg = false
 }
 local Icons = {}
-
-local Success, Response =
-    pcall(
-    function()
-        Icons =
-            HttpService:JSONDecode(
-            game:HttpGetAsync("https://raw.githubusercontent.com/ySixxNz/LibraryV1/refs/heads/LibraryV1/icons.json")
-        ).icons
-    end
-)
+local Success, Response = pcall(function()
+    Icons = HttpService:JSONDecode(
+        game:HttpGetAsync("https://raw.githubusercontent.com/ySixxNz/LibraryV1/refs/heads/LibraryV1/icons.json")
+    ).icons
+end)
 
 if not Success then
     warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
+    Icons = {}
 end
 
 local function GetIcon(IconName)
     local cleanedIconName = IconName:gsub("^lucide%-", ""):gsub("^%-", "")
-
     if Icons["lucide-" .. cleanedIconName] ~= nil then
         return Icons["lucide-" .. cleanedIconName]
     elseif Icons[cleanedIconName] ~= nil then
         return Icons[cleanedIconName]
-    else
-        return nil
-    end
 end
 
 local Orion = Instance.new("ScreenGui")
