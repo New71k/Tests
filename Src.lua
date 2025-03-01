@@ -1163,10 +1163,10 @@ AddConnection(
 
         OrionLib:MakeNotification(
             {
-                Name = translate("Interface fechada"),
-                Content = (isMobile and translate("Clique na <b>Icon") or
-                    translate("Pressione a tecla <b>") .. _currentKey.Name) ..
-                    "</b> " .. translate("para abrir a GUI novamente!"),
+                Name = "Interface fechada",
+                Content = (isMobile and "Clique na <b>Icon" or
+                    "Pressione a tecla <b>" .. _currentKey.Name) ..
+                    "</b> " .. "para abrir a GUI novamente!",
                 Time = 5
             }
         )
@@ -1180,7 +1180,7 @@ AddConnection(
         OrionLib:MakeNotification(
             {
                 Name = "Six Hub",
-                Content = translate("Destroying Script..."),
+                Content = "Destroying Script...",
                 Image = "rbxthumb://type=Asset&id=18503262032&w=150&h=150",
                 Time = 5
             }
@@ -1193,7 +1193,7 @@ AddConnection(
 OrionLib:MakeNotification(
     {
         Name = "Six Hub",
-        Content = translate("Loading Script..."),
+        Content = "Loading Script...",
         Image = "rbxassetid://18503294448",
         Time = 5
     }
